@@ -1,0 +1,44 @@
+service: lambda-chart
+plugins:
+  - serverless-webpack
+
+custom:
+  webpackIncludeModules: true
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: eu-west-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:ListBucket"
+        - "s3:GetObject"
+        - "s3:PutObject"
+      Resource: "arn:aws:s3:::graph.bucket/*"
+
+functions:
+  request-chart:
+    handler: index.requestChart
+    environment: ${file(./env.yml)}
+    package:
+      include:
+        - phantomjs
+    events:
+      - http:
+          path: chart
+          method: post
+
+  render-chart:
+    handler: index.renderChart
+    events:
+      - http:
+          path: render
+          method: post
+
+resources:
+  Resources:
+    S3BucketGraphs:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: graph.bucket 
