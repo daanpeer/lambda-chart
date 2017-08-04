@@ -1,3 +1,9 @@
+## What is this?
+This is a tool which generates charts using React and AWS Lambda.
+
+## How do i use this?
+TODO
+
 ## TODO
 - [ ] Move files to s3
 - [ ] Cleanup code
