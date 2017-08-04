@@ -78,14 +78,14 @@ export const requestChart = (event, context, callback) => {
   childProcess.execFile('./phantomjs', processArgs, function(error, stdout, stderr) {
     console.log(error, stdout, stderr);
     if (error) {
-      console.log(error)
+      console.log('noes error', error)
       return callback(null, {
         statusCode: 500,
         body: JSON.stringify(error),
       })
     }
     if (stderr) {
-      console.log(stderr)
+      console.log('error', stderr)
       return callback(null, {
         statusCode: 500,
         body: JSON.stringify(error),
@@ -98,7 +98,7 @@ export const requestChart = (event, context, callback) => {
 
     params.Body = file;
     s3.putObject(params, (err, data) => {
-      console.log(err)
+      console.log('saving to s3', 'data', data, 'error', err)
       if (err) {
         return callback(null, {
           statusCode: 500,
