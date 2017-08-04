@@ -6,6 +6,13 @@ const filename = system.args[1];
 const data = system.args[2];
 const requestData = JSON.parse(atob(data))
 
+
+console.log('retrieved request data', JSON.stringify(requestData));
+
+page.onResourceRequested = function (request) {
+  console.log('Request ' + JSON.stringify(request, undefined, 4));
+};
+
 console.log('requesting page with args', system.args);
 page.open(url, 'post', JSON.stringify({ chartData: requestData }), function(status) {
   page.render('/tmp/' + filename);
