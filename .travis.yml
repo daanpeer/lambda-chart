@@ -9,3 +9,7 @@ before_script:
 
 script:
 - serverless deploy
+
+cache:
+  directories:
+    - node_modules
