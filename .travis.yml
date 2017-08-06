@@ -2,9 +2,6 @@ language: node_js
 node_js:
 - 7
 
-# before_install:
-# - yarn
-
 before_script:
 - touch .env.yml
 - echo "RENDER_GRAPH_URL: $RENDER_GRAPH_URL" > .env.yml
