@@ -1,11 +1,10 @@
-const path = require('path')
-const chmod = require('chmod');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const WebpackOnBuildPlugin = require('on-build-webpack');
+const chmod = require('chmod')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const WebpackOnBuildPlugin = require('on-build-webpack')
 
 const config = {
   entry: [
-    './index.js',
+    './index.js'
   ],
 
   devtool: 'source-map',
@@ -29,7 +28,7 @@ const config = {
       }
     ]),
     new WebpackOnBuildPlugin(() => {
-        chmod('.webpack/phantomjs', 777);
+      chmod('.webpack/phantomjs', 777)
     })
   ]
 }
