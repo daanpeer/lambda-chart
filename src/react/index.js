@@ -1,5 +1,5 @@
-import chart from './chart'
+import renderChart from './chart'
 
 export {
-  chart
+  renderChart
 }
