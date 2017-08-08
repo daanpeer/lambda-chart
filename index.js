@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { renderChart as renderReactChart } from './src/react'
 import phantomRenderer from './src/phantom-renderer'
-import { storeFileToS3 } from './src/s3'
+import { uploadFileToS3, storeFileToS3 } from './src/s3'
 
 export const requestChart = async (event, context, callback) => {
   process.env.PATH = `${process.env.PATH}:${process.env.LAMBDA_TASK_ROOT}`
@@ -38,7 +38,12 @@ export const requestChart = async (event, context, callback) => {
   const file = fs.readFileSync(`/tmp/${filename}`)
 
   try {
-    await storeFileToS3(filename, file)
+    const response = await uploadFileToS3(filename, file)
+    // await storeFileToS3(filename, file)
+    return callback(null, {
+      statusCode: 200,
+      body: response.Location
+    })
   } catch (err) {
     console.log('error occured storing files', err)
     return callback(null, {
@@ -46,11 +51,6 @@ export const requestChart = async (event, context, callback) => {
       body: err
     })
   }
-
-  return callback(null, {
-    statusCode: 200,
-    body: filename
-  })
 }
 
 export const renderChart = (event, context, callback) => {
