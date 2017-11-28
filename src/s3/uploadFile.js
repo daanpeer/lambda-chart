@@ -7,7 +7,7 @@ const uploadFileToS3 = (filename, file) =>
       Bucket: process.env.BUCKET_NAME,
       Key: filename,
       Body: file,
-      ACL: 'public-read',
+      ACL: 'public-read'
     }, (err, data) => {
       console.log('saving to s3', 'data', data, 'error', err)
       if (err !== null) {

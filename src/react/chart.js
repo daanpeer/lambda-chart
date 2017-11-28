@@ -4,8 +4,12 @@ import html from './html'
 import { LineChart, XAxis, YAxis, Legend, Line, Tooltip } from 'recharts'
 
 const Chart = ({ data, lines }) => (
-  <LineChart width={730} height={250} data={data}
-    margin={{ top: 10, right: 30, left: 20, bottom: 10 }}>
+  <LineChart
+    width={730}
+    height={250}
+    data={data}
+    margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
+  >
     <XAxis dataKey='name' />
     <YAxis />
     <Tooltip />
@@ -25,11 +29,13 @@ const Chart = ({ data, lines }) => (
   </LineChart>
 )
 
-const renderChart = ({ data, lines }) =>
+const renderChart = ({ data, lines }) => {
+  console.log('rendering chart with data: ', data, lines)
   html(ReactDOMServer.renderToStaticMarkup(
     <Chart
       data={data}
       lines={lines}
     />))
+}
 
 export default renderChart
